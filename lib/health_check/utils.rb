@@ -39,8 +39,8 @@ module HealthCheck
             else
               database_version  = HealthCheck::Utils.get_database_version
               migration_version = HealthCheck::Utils.get_migration_version
-              if database_version.to_i != migration_version.to_i
-                errors << "Current database version (#{database_version}) does not match latest migration (#{migration_version}). "
+              if database_version.to_i >= migration_version.to_i
+                errors << "Minimum database version (#{database_version}) required not met by latest migration (#{migration_version}). "
               end
             end
           when 'cache'
